@@ -22,6 +22,13 @@
       "when": 1727378189999,
       "tag": "0002_confused_nemesis",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1727380314905,
+      "tag": "0003_special_mojo",
+      "breakpoints": true
     }
   ]
 }

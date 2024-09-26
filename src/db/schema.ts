@@ -14,7 +14,7 @@ export const users = pgTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
 	messages: many(messages),
-    chatRooms: many(chatRooms),
+	chatRooms: many(chatRooms),
 }));
 
 export const accounts = pgTable(
@@ -92,7 +92,7 @@ export const chatRooms = pgTable("chatRoom", {
 	authorId: text("userId")
 		.notNull()
 		.references(() => users.id, { onDelete: "cascade" }),
-	createdAt: timestamp("createdAt", { mode: "date" }).notNull(),
+	createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 });
 
 export const chatRoomsRelations = relations(chatRooms, ({ one, many }) => ({
