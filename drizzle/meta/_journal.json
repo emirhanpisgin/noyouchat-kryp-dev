@@ -15,6 +15,13 @@
       "when": 1727357216344,
       "tag": "0001_dark_the_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1727378189999,
+      "tag": "0002_confused_nemesis",
+      "breakpoints": true
     }
   ]
 }

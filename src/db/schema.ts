@@ -83,6 +83,25 @@ export const authenticators = pgTable(
 	})
 );
 
+export const chatRooms = pgTable("chatRoom", {
+	id: text("id")
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
+	name: text("name").notNull(),
+	authorId: text("userId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	createdAt: timestamp("createdAt", { mode: "date" }).notNull(),
+});
+
+export const chatRoomsRelations = relations(chatRooms, ({ one, many }) => ({
+	user: one(users, {
+		fields: [chatRooms.authorId],
+		references: [users.id],
+	}),
+	message: many(messages),
+}));
+
 export const messages = pgTable("message", {
 	id: text("id")
 		.primaryKey()
@@ -104,4 +123,8 @@ export const messagesRelations = relations(messages, ({ one }) => ({
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
-export type UpdateUser = Omit<NewUser, 'id'> & { id: string };
+export type UpdateUser = Omit<NewUser, "id"> & { id: string };
+
+export type ChatRoom = typeof chatRooms.$inferSelect;
+export type NewChatRoom = typeof chatRooms.$inferInsert;
+export type UpdateChatRoom = Omit<NewChatRoom, "id"> & { id: string };
