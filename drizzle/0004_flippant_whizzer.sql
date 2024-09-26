@@ -1,0 +1,1 @@
+ALTER TABLE "chatRoom" ALTER COLUMN "createdAt" SET NOT NULL;

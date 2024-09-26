@@ -92,7 +92,7 @@ export const chatRooms = pgTable("chatRoom", {
 	authorId: text("userId")
 		.notNull()
 		.references(() => users.id, { onDelete: "cascade" }),
-	createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 
 export const chatRoomsRelations = relations(chatRooms, ({ one, many }) => ({

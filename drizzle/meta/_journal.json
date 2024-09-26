@@ -29,6 +29,13 @@
       "when": 1727380314905,
       "tag": "0003_special_mojo",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1727382132066,
+      "tag": "0004_flippant_whizzer",
+      "breakpoints": true
     }
   ]
 }
