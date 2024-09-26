@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import NewRoomDialog from "./new-room-dialog";
 
 export default function Home() {
     return (
@@ -15,11 +16,7 @@ export default function Home() {
                     <Link className={buttonVariants()} href={"/chats"}>
                         Odalar
                     </Link>
-                    <Link className={buttonVariants({
-                        variant: "outline"
-                    })} href={"/chats/new"}>
-                        Oda Oluştur
-                    </Link>
+                    <NewRoomDialog />
                 </div>
             </div>
         </div>
