@@ -96,7 +96,7 @@ export const chatRooms = pgTable("chatRoom", {
 });
 
 export const chatRoomsRelations = relations(chatRooms, ({ one, many }) => ({
-	user: one(users, {
+	author: one(users, {
 		fields: [chatRooms.authorId],
 		references: [users.id],
 	}),
