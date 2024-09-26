@@ -12,7 +12,7 @@ export const users = pgTable("user", {
 	image: text("image"),
 });
 
-export const userRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
 	messages: many(messages),
 }));
 
@@ -96,5 +96,12 @@ export const messages = pgTable("message", {
 });
 
 export const messagesRelations = relations(messages, ({ one }) => ({
-	user: one(users),
+	user: one(users, {
+		fields: [messages.userId],
+		references: [users.id],
+	}),
 }));
+
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type UpdateUser = Partial<NewUser>;
