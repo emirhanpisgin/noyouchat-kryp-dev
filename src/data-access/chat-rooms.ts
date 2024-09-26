@@ -10,3 +10,11 @@ export async function createChatRoom(userId: string, name: string) {
 
     return newChatRoom.id;
 }
+
+export async function getRoomsWithAuthors() {
+    return await database.query.chatRooms.findMany({
+        with: {
+            author: true,
+        }
+    });
+}
