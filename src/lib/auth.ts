@@ -1,5 +1,6 @@
 import { database } from "@/db";
 import { uploadUserImage } from "@/helpers/uploadthing";
+import { updateUserUseCase } from "@/use-cases/users";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
@@ -9,10 +10,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	providers: [Google],
 	callbacks: {
 		async signIn({ user }) {
-			let userImage = user.image;
+			const userImage = user.image;
 
 			if (!user.image?.includes("utfs.io")) {
-				user.image = await uploadUserImage(userImage!, user.id!);
+				const uploadedImage = await uploadUserImage(userImage!, user.id!);
+
+				await updateUserUseCase({
+					id: user.id!,
+					image: uploadedImage,
+				});
 			}
 
 			return true;
