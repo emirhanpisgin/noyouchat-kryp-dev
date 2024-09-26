@@ -1,8 +1,12 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import NewRoomDialog from "./new-room-dialog";
+import { auth, signIn } from "@/lib/auth";
+import LoginButton from "./login-button";
 
-export default function Home() {
+export default async function Home() {
+    const session = await auth();
+
     return (
         <div className="grid place-items-center flex-1 px-2">
             <div className="text-center flex flex-col gap-2">
@@ -16,7 +20,11 @@ export default function Home() {
                     <Link className={buttonVariants()} href={"/chats"}>
                         Odalar
                     </Link>
-                    <NewRoomDialog />
+                    {session?.user ? (
+                        <NewRoomDialog />
+                    ) : (
+                        <LoginButton />
+                    )}
                 </div>
             </div>
         </div>
