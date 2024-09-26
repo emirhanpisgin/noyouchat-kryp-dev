@@ -120,6 +120,10 @@ export const messagesRelations = relations(messages, ({ one }) => ({
 		fields: [messages.userId],
 		references: [users.id],
 	}),
+    chatRoom: one(chatRooms, {
+        fields: [messages.channelId],
+        references: [chatRooms.id],
+    }),
 }));
 
 export type User = typeof users.$inferSelect;
