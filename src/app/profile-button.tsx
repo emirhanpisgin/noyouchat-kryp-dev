@@ -8,14 +8,14 @@ export default function ProfileButton({ user }: { user?: User }) {
     if (!user) {
         return (
             <Button onClick={() => signIn("google")}>
-                Sign In
+                Giriş Yap
             </Button>
         );
     }
 
     return (
         <Button onClick={() => signOut()}>
-            Sign Out
+            Çıkış Yap
         </Button>
     );
 }
