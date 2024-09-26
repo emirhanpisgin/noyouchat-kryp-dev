@@ -104,4 +104,4 @@ export const messagesRelations = relations(messages, ({ one }) => ({
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
-export type UpdateUser = Partial<NewUser>;
+export type UpdateUser = Omit<NewUser, 'id'> & { id: string };
