@@ -2,10 +2,10 @@
 import { signIn, signOut } from "next-auth/react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { LogIn, LogOut, User as UserIcon, UserPen } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { User } from "@/db/schema";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import Image from "next/image";
+import { User } from "next-auth";
 
 export default function ProfileButton({ user }: { user?: User }) {
 
