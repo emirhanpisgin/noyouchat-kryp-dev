@@ -1,8 +1,8 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import NewRoomDialog from "./new-room-dialog";
-import { auth, signIn } from "@/lib/auth";
-import LoginButton from "./login-button";
+import { auth } from "@/lib/auth";
+import LoginButton from "../components/login-button";
 
 export default async function Home() {
     const session = await auth();
