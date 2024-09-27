@@ -28,11 +28,13 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen h-screen overflow-hidden`}
             >
                 <Providers>
                     <Navbar />
-                    {children}
+                    <div className="flex-grow flex flex-col overflow-hidden">
+                        {children}
+                    </div>
                 </Providers>
             </body>
         </html>
