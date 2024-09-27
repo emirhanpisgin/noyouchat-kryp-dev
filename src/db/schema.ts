@@ -135,5 +135,6 @@ export type NewChatRoom = typeof chatRooms.$inferInsert;
 export type UpdateChatRoom = Omit<NewChatRoom, "id"> & { id: string };
 
 export type Message = typeof messages.$inferSelect;
+export type MessageWithUser = Message & { user: User };
 export type NewMessage = typeof messages.$inferInsert;
 export type UpdateMessage = Omit<NewMessage, "id"> & { id: string };
