@@ -1,0 +1,1 @@
+ALTER TABLE "message" RENAME COLUMN "channelId" TO "roomId";
