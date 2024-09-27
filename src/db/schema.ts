@@ -120,10 +120,10 @@ export const messagesRelations = relations(messages, ({ one }) => ({
 		fields: [messages.userId],
 		references: [users.id],
 	}),
-    chatRoom: one(chatRooms, {
-        fields: [messages.roomId],
-        references: [chatRooms.id],
-    }),
+	chatRoom: one(chatRooms, {
+		fields: [messages.roomId],
+		references: [chatRooms.id],
+	}),
 }));
 
 export type User = typeof users.$inferSelect;
@@ -133,3 +133,7 @@ export type UpdateUser = Omit<NewUser, "id"> & { id: string };
 export type ChatRoom = typeof chatRooms.$inferSelect;
 export type NewChatRoom = typeof chatRooms.$inferInsert;
 export type UpdateChatRoom = Omit<NewChatRoom, "id"> & { id: string };
+
+export type Message = typeof messages.$inferSelect;
+export type NewMessage = typeof messages.$inferInsert;
+export type UpdateMessage = Omit<NewMessage, "id"> & { id: string };
