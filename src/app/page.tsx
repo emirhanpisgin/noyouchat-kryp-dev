@@ -11,7 +11,7 @@ export default async function Home() {
         <div className="grid place-items-center flex-1 px-2">
             <div className="text-center flex flex-col gap-2">
                 <div className="font-semibold text-2xl">
-                    NoYouChat <span className="font-normal">&#39;e hoşgeldin.</span>
+                    NoYouChat<span className="font-normal">&#39;e hoşgeldin.</span>
                 </div>
                 <div className="text-xl text-balance">
                     Sohbet odaları oluşturabilir, katılabilir ve istediğiniz kadar sohbet edebilirsiniz.

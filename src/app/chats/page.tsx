@@ -11,7 +11,7 @@ export default async function Chats() {
             <div className="text-3xl my-4 font-semibold">
                 Sohbet Odaları
             </div>
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
                 {rooms.map((room) => (
                     <Link key={room.id} href={`/chats/${room.id}`}>
                         <Card className="hover:bg-accent/30 transition-colors duration-200">
