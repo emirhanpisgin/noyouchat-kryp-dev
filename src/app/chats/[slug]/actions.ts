@@ -2,7 +2,7 @@
 
 import { authenticatedAction } from "@/lib/safe-action";
 import { editRoomNameUseCase } from "@/use-cases/chat-rooms";
-import { createMessageUseCase } from "@/use-cases/messages";
+import { createMessageUseCase, deleteMessageUseCase } from "@/use-cases/messages";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -20,6 +20,17 @@ export const createMessageAction = authenticatedAction
         revalidatePath(`/chats/${input.roomId}`);
 	});
 
+export const deleteMessageAction = authenticatedAction
+    .createServerAction()
+    .input(
+        z.object({
+            messageId: z.string(),
+        })
+    )
+    .handler(async ({ ctx, input }) => {
+        await deleteMessageUseCase(ctx.id!, input.messageId);
+    });
+
 export const editRoomNameAction = authenticatedAction
     .createServerAction()
 	.input(
@@ -33,3 +44,4 @@ export const editRoomNameAction = authenticatedAction
 
         revalidatePath(`/chats/${input.roomId}`);
     });
+
