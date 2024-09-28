@@ -7,6 +7,7 @@ import MessageInput from "./message-input";
 import LoginButton from "@/components/login-button";
 import MessageFeed from "./message-feed";
 import { getPreviousMessages } from "./loaders";
+import SettingsDialog from "./settings-dialog";
 
 export default async function ChatRoom({ params: { slug } }: { params: { slug: string } }) {
     const session = await auth();
@@ -50,9 +51,12 @@ export default async function ChatRoom({ params: { slug } }: { params: { slug: s
                 })}>
                     <ArrowLeft />
                 </Link>
-                <div className="flex gap-1 items-center">
+                <div className="flex flex-1 gap-1 items-center">
                     <Hash /> {room.name}
                 </div>
+                {session.user?.id === room.authorId && (
+                    <SettingsDialog room={room} />
+                )}
             </div>
             <div className="flex-grow overflow-y-auto">
                 <MessageFeed previousMessages={messages} roomId={room.id} />
