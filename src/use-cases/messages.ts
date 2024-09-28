@@ -4,7 +4,10 @@ import { announceDeletedMessage, announceNewMessage } from "@/helpers/pusher";
 export async function createMessageUseCase(roomId: string, userId: string, message: string) {
     const newMessage = await createMessage(roomId, userId, message);
 
-    await announceNewMessage(roomId, newMessage);
+    const { user, ...messageWithoutUser } = newMessage;
+    const { email, emailVerified, ...rest } = user;
+
+    await announceNewMessage(roomId, {...messageWithoutUser, user: rest} as any);
 }
 
 export async function deleteMessageUseCase(userId: string, messageId: string) {

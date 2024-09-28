@@ -40,7 +40,16 @@ export default async function ChatRoom({ params: { slug } }: { params: { slug: s
         );
     }
 
-    const messages = await getPreviousMessages(room.id);
+    const allMessages = await getPreviousMessages(room.id);
+    const messages = allMessages.map((message) => {
+        const { user, ...rest } = message;
+        const { email, emailVerified, ...userWithoutEmail } = user;
+
+        return {
+            ...rest,
+            user: userWithoutEmail
+        };
+    });
 
     return (
         <div className="flex flex-col h-full">
@@ -64,7 +73,7 @@ export default async function ChatRoom({ params: { slug } }: { params: { slug: s
                 )}
             </div>
             <div className="flex-grow overflow-y-auto">
-                <MessageFeed previousMessages={messages} roomId={room.id} userId={session.user?.id!}/>
+                <MessageFeed previousMessages={messages as any} roomId={room.id} userId={session.user?.id!}/>
             </div>
             <MessageInput roomId={room.id} />
         </div>
