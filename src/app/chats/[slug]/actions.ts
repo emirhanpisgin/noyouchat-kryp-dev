@@ -1,6 +1,7 @@
 "use server";
 
 import { authenticatedAction } from "@/lib/safe-action";
+import { editRoomNameUseCase } from "@/use-cases/chat-rooms";
 import { createMessageUseCase } from "@/use-cases/messages";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -10,7 +11,7 @@ export const createMessageAction = authenticatedAction
 	.input(
 		z.object({
 			roomId: z.string(),
-			message: z.string().min(1),
+			message: z.string().min(1).max(200),
 		})
 	)
 	.handler(async ({ ctx, input }) => {
@@ -18,3 +19,17 @@ export const createMessageAction = authenticatedAction
 
         revalidatePath(`/chats/${input.roomId}`);
 	});
+
+export const editRoomNameAction = authenticatedAction
+    .createServerAction()
+	.input(
+		z.object({
+			roomId: z.string(),
+			name: z.string().min(1),
+		})
+	)
+    .handler(async ({ ctx, input }) => {
+        await editRoomNameUseCase(ctx.id!, input.roomId, input.name);
+
+        revalidatePath(`/chats/${input.roomId}`);
+    });
