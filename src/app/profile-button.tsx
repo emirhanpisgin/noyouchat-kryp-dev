@@ -33,12 +33,6 @@ export default function ProfileButton({ user }: { user?: User }) {
                     {user.name}
                 </div>
                 <div className="flex justify-center p-2 gap-2">
-                    <Link href="/profile/edit" className={buttonVariants({
-                        size: "icon",
-                        variant: "outline",
-                    })}>
-                        <UserPen />
-                    </Link>
                     <Button variant={"outline"} size={"icon"} onClick={() => signOut()}>
                         <LogOut />
                     </Button>
