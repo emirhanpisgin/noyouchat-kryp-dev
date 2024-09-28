@@ -55,7 +55,22 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+        keyframes: {
+            "peek": {
+                "0%, 100%": {
+                    transform: "translateY(100%)",
+                    opacity: "0"
+                },
+                "10%, 90%": {
+                    transform: "translateY(-50%)",
+                    opacity: "100"
+                },
+            }
+        },
+        animation: {
+            "peek": "peek 2s ease-in-out forwards"
+        }
   	}
   },
   plugins: [require("tailwindcss-animate")],
