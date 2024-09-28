@@ -35,7 +35,7 @@ export default function NewRoomDialog() {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Yeni Oda</DialogTitle>
-                    <DialogDescription>Bilgileri doldurarak yeni bir oda oluşturabilirsin.</DialogDescription>
+                    <DialogDescription>Odanın ismini yazarak yeni bir oda oluşturabilirsin.</DialogDescription>
                 </DialogHeader><div className="flex flex-col gap-2">
                     <Label>
                         Oda İsmi
