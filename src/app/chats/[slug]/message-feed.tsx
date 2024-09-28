@@ -1,15 +1,17 @@
 "use client";
 
 import { MessageWithUser } from "@/db/schema";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useMessages } from "@/components/context/message-context";
 import { pusherClient } from "@/lib/pusher";
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, LoaderCircle } from "lucide-react";
 import MessageSettingsDropdown from "./message-settings-dropdown";
+import { cn } from "@/lib/utils";
 
 export default function MessageFeed({ previousMessages, roomId, userId }: { previousMessages: MessageWithUser[], roomId: string, userId: string }) {
     const feedEndRef = useRef<HTMLDivElement | null>(null);
+    const [pendingMessages, setPendingMessages] = useState<string[]>([]);
     const { messages, setMessages } = useMessages();
 
     const scrollToBottom = () => {
@@ -54,7 +56,7 @@ export default function MessageFeed({ previousMessages, roomId, userId }: { prev
     return (
         <div className="min-h-full overflow-y-auto flex flex-col justify-end">
             {(messages[roomId] ?? [] as MessageWithUser[]).map((message) => (
-                <div key={message.id} className="flex gap-2 px-3 py-1 hover:bg-accent/30 transition-colors group">
+                <div key={message.id} className={cn("flex gap-2 px-3 py-1 relative hover:bg-accent/30 transition-[colors,opacity] group", pendingMessages.includes(message.id) ? "opacity-30" : "")}>
                     <span className="size-10">
                         <Image src={message.user.image!} alt="User" sizes="100vw" width={0} height={0} className="w-full rounded-full" />
                     </span>
@@ -67,7 +69,7 @@ export default function MessageFeed({ previousMessages, roomId, userId }: { prev
                                 {new Date(message.createdAt).toLocaleTimeString("tr-TR")}
                             </div>
                             {userId === message.userId && <div>
-                                <MessageSettingsDropdown message={message} />
+                                <MessageSettingsDropdown message={message} addPendingMessage={(messageId: string) => setPendingMessages(prev => [...prev, messageId])} />
                             </div>}
                         </div>
                         <div className="break-all flex-1 text-sm lg:text-base">

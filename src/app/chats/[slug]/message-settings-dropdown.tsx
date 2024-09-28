@@ -4,8 +4,9 @@ import { toast } from "@/hooks/use-toast";
 import { Ellipsis, Trash } from "lucide-react";
 import { useServerAction } from "zsa-react";
 import { deleteMessageAction } from "./actions";
+import { useEffect } from "react";
 
-export default function MessageSettingsDialog({ message }: { message: MessageWithUser }) {
+export default function MessageSettingsDialog({ message, addPendingMessage }: { message: MessageWithUser, addPendingMessage: (messageId: string) => void }) {
     const { isPending, execute } = useServerAction(deleteMessageAction, {
         onSuccess() {
             toast({
@@ -14,6 +15,10 @@ export default function MessageSettingsDialog({ message }: { message: MessageWit
             });
         }
     });
+
+    useEffect(() => {
+        if (isPending) addPendingMessage(message.id);
+    }, [isPending])
 
     return (
         <DropdownMenu>
@@ -28,6 +33,5 @@ export default function MessageSettingsDialog({ message }: { message: MessageWit
                 })} className="text-red-500 flex gap-1 items-center cursor-pointer"><Trash className="size-4" /> Mesajı Sil</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-
     );
 }
