@@ -111,7 +111,9 @@ export const messages = pgTable("message", {
 		.notNull()
 		.references(() => users.id, { onDelete: "cascade" }),
 	text: text("text").notNull(),
-	roomId: text("roomId").notNull(),
+	roomId: text("roomId")
+		.notNull()
+		.references(() => chatRooms.id, { onDelete: "cascade" }),
 	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
 

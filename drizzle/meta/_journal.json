@@ -50,6 +50,13 @@
       "when": 1727475231114,
       "tag": "0006_overjoyed_owl",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1727555317402,
+      "tag": "0007_handy_centennial",
+      "breakpoints": true
     }
   ]
 }
