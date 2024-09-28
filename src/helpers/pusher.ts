@@ -8,3 +8,7 @@ export async function announceNewMessage(roomId: string, message: MessageWithUse
 export async function announceDeletedMessage(roomId: string, messageId: string) {
     await pusherServer.trigger(roomId, "delete-message", messageId);
 }
+
+export async function announceDeletedRoom(roomId: string) {
+    await pusherServer.trigger(roomId, "delete-room", roomId);
+}
