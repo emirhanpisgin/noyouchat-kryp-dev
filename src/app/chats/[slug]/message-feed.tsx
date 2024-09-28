@@ -5,14 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useMessages } from "@/components/context/message-context";
 import { pusherClient } from "@/lib/pusher";
-import { Ellipsis, LoaderCircle } from "lucide-react";
 import MessageSettingsDropdown from "./message-settings-dropdown";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export default function MessageFeed({ previousMessages, roomId, userId }: { previousMessages: MessageWithUser[], roomId: string, userId: string }) {
     const feedEndRef = useRef<HTMLDivElement | null>(null);
     const [pendingMessages, setPendingMessages] = useState<string[]>([]);
     const { messages, setMessages } = useMessages();
+    const router = useRouter();
+    const { toast } = useToast();
 
     const scrollToBottom = () => {
         feedEndRef.current?.scrollIntoView();
@@ -42,10 +45,23 @@ export default function MessageFeed({ previousMessages, roomId, userId }: { prev
             }));
         });
 
+        channel.bind("delete-room", () => {
+            setMessages((prev) => {
+                const newMessages = { ...prev };
+                delete newMessages[roomId];
+                return newMessages;
+            });
+
+            channel.unsubscribe();
+            toast({
+                title: "Bildirim",
+                description: "Katıldığınız oda yöneticisi tarafından silindi, anasayfaya yönlendiriliyorsunuz.",
+            });
+            router.push("/chats");
+        });
+
         return () => {
             channel.unsubscribe();
-            channel.unbind("new-message");
-            channel.unbind("delete-message");
         };
     }, []);
 
