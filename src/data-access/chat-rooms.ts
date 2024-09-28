@@ -32,3 +32,7 @@ export async function getRoomBySlug(slug: string) {
 		},
 	});
 }
+
+export async function editRoomName(roomId: string, name: string) {
+	await database.update(chatRooms).set({ name }).where(eq(chatRooms.id, roomId));
+}
