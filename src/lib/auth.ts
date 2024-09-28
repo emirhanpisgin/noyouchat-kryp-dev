@@ -4,10 +4,11 @@ import { updateUserUseCase } from "@/use-cases/users";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import Discord from "next-auth/providers/discord";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	adapter: DrizzleAdapter(database),
-	providers: [Google],
+	providers: [Google,Discord],
 	callbacks: {
 		async signIn({ user }) {
 			const userImage = user.image;

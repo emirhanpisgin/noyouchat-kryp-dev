@@ -10,7 +10,7 @@ import { LoaderCircle, SendHorizontal } from "lucide-react";
 export default function MessageInput({ roomId }: { roomId: string }) {
     const [message, setMessage] = useState("");
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
-    const { data, error, execute, isPending } = useServerAction(createMessageAction, {
+    const { execute, isPending } = useServerAction(createMessageAction, {
         onFinish() {
             setMessage("");
             inputRef.current?.focus();
