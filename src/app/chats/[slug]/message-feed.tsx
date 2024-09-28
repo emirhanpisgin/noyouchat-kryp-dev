@@ -50,14 +50,14 @@ export default function MessageFeed({ previousMessages, roomId }: { previousMess
                     </span>
                     <div className="flex flex-col flex-1">
                         <div className="flex gap-2 items-center">
-                            <div className="font-medium">
+                            <div className="font-medium text-base lg:text-lg">
                                 {message.user.name}
                             </div>
-                            <div className="text-sm text-foreground/50" title={message.createdAt.toLocaleString("tr-TR")}>
+                            <div className="text-xs lg:text-sm text-foreground/50" title={message.createdAt.toLocaleString("tr-TR")}>
                                 {new Date(message.createdAt).toLocaleTimeString("tr-TR")}
                             </div>
                         </div>
-                        <div className="break-all flex-1">
+                        <div className="break-all flex-1 text-sm lg:text-base">
                             {message.text}
                         </div>
                     </div>

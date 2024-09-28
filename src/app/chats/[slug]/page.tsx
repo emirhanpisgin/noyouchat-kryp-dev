@@ -1,7 +1,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { getRoomBySlugUseCase } from "@/use-cases/chat-rooms";
-import { ArrowLeft, Hash } from "lucide-react";
+import { ArrowLeft, Hash, User } from "lucide-react";
 import Link from "next/link";
 import MessageInput from "./message-input";
 import LoginButton from "@/components/login-button";
@@ -51,8 +51,13 @@ export default async function ChatRoom({ params: { slug } }: { params: { slug: s
                 })}>
                     <ArrowLeft />
                 </Link>
-                <div className="flex flex-1 gap-1 items-center">
-                    <Hash /> {room.name}
+                <div className="flex flex-col flex-1 justify-center">
+                    <div className="flex gap-1 items-center">
+                        <Hash /> {room.name}
+                    </div>
+                    <div className="flex items-center gap-1 text-foreground/50">
+                        <User className="size-4"/> <span className="text-xs">{room.author.name}</span>
+                    </div>
                 </div>
                 {session.user?.id === room.authorId && (
                     <SettingsDialog room={room} />
