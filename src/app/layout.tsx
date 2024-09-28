@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./navbar";
 import Providers from "@/components/providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
                     <div className="flex-grow flex flex-col overflow-hidden">
                         {children}
                     </div>
+                    <Toaster />
                 </Providers>
             </body>
         </html>
