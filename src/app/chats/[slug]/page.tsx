@@ -64,7 +64,7 @@ export default async function ChatRoom({ params: { slug } }: { params: { slug: s
                 )}
             </div>
             <div className="flex-grow overflow-y-auto">
-                <MessageFeed previousMessages={messages} roomId={room.id} />
+                <MessageFeed previousMessages={messages} roomId={room.id} userId={session.user?.id!}/>
             </div>
             <MessageInput roomId={room.id} />
         </div>
