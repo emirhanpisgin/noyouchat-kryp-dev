@@ -9,7 +9,7 @@ export default async function Chats() {
 
     return (
         <div className="px-2 mx-auto w-full text-center">
-            <div className="text-3xl my-4 font-semibold flex items-center gap-3 justify-center">
+            <div className="text-2xl lg:text-3xl my-4 font-semibold flex items-center gap-3 justify-center">
                 Sohbet Odaları
                 <NewRoomDialog />
             </div>
