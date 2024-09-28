@@ -4,7 +4,7 @@ import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTr
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChatRoom } from "@/db/schema";
-import { Settings, Check } from "lucide-react";
+import { Settings, Check, Save } from "lucide-react";
 import { useState } from "react";
 import { useServerAction } from "zsa-react";
 import { editRoomNameAction } from "./actions";
@@ -40,26 +40,16 @@ export default function RoomSettingsDialog({ room }: { room: ChatRoom }) {
                 <div className="flex flex-col gap-2">
                     <Label>
                         Oda İsmi
-                        <div className="relative mt-2">
-                            <Input disabled={isPending} placeholder="Oda İsmi..." value={roomName} onChange={(e) => setRoomName(e.target.value)} />
-                            {showCheckmark && (
-                                <Check className="absolute right-2 top-1/2 -translate-y-1/2 animate-peek text-green-500" />
-                            )}
+                        <div className="mt-2 flex gap-2">
+                            <Input disabled={isPending} className="flex-1" placeholder="Oda İsmi..." value={roomName} onChange={(e) => setRoomName(e.target.value)} />
+                            <Button size={"icon"} className="overflow-hidden disabled:opacity-100" disabled={isPending || !roomName.length || roomName === room.name} onClick={() => execute({
+                                roomId: room.id,
+                                name: roomName
+                            })}>
+                                {showCheckmark ? <Check className="animate-peek text-green-500"/> : <Save />}
+                            </Button>
                         </div>
                     </Label>
-                    <div className="flex justify-end gap-2">
-                        <DialogClose className={buttonVariants({
-                            variant: "outline"
-                        })}>
-                            İptal
-                        </DialogClose>
-                        <Button disabled={isPending || !roomName.length || roomName === room.name} onClick={() => execute({
-                            roomId: room.id,
-                            name: roomName
-                        })}>
-                            Kaydet
-                        </Button>
-                    </div>
                 </div>
             </DialogContent>
         </Dialog>

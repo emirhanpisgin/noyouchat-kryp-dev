@@ -63,7 +63,7 @@ const config: Config = {
                     opacity: "0"
                 },
                 "10%, 90%": {
-                    transform: "translateY(-50%)",
+                    transform: "translateY(0)",
                     opacity: "100"
                 },
             }
