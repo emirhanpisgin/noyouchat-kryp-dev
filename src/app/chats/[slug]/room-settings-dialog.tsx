@@ -4,15 +4,15 @@ import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTr
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChatRoom } from "@/db/schema";
-import { Settings, Check } from "lucide-react"; // Import Check icon
+import { Settings, Check } from "lucide-react";
 import { useState } from "react";
 import { useServerAction } from "zsa-react";
 import { editRoomNameAction } from "./actions";
 import { useToast } from "@/hooks/use-toast";
 
-export default function SettingsDialog({ room }: { room: ChatRoom }) {
+export default function RoomSettingsDialog({ room }: { room: ChatRoom }) {
     const [roomName, setRoomName] = useState(room.name);
-    const [showCheckmark, setShowCheckmark] = useState(false); // State for checkmark visibility
+    const [showCheckmark, setShowCheckmark] = useState(false);
     const { toast } = useToast();
     const { isPending, execute } = useServerAction(editRoomNameAction, {
         onSuccess() {
@@ -20,8 +20,8 @@ export default function SettingsDialog({ room }: { room: ChatRoom }) {
                 title: "Başarılı",
                 description: "Oda ismi başarıyla güncellendi.",
             });
-            setShowCheckmark(true); // Show checkmark
-            setTimeout(() => setShowCheckmark(false), 2000); // Hide checkmark after 1 second
+            setShowCheckmark(true);
+            setTimeout(() => setShowCheckmark(false), 2000);
         }
     });
 
