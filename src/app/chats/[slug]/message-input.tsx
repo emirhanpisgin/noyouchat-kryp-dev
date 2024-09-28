@@ -19,7 +19,7 @@ export default function MessageInput({ roomId }: { roomId: string }) {
 
     return (
         <div className="border-t flex p-2 gap-2">
-            <AutosizeTextarea ref={inputRef as React.RefObject<AutosizeTextAreaRef>} autoFocus className="resize-none font-medium flex-1 h-[38px]" value={message} onChange={(e) => setMessage(e.target.value)} disabled={isPending} placeholder="Mesaj..." />
+            <AutosizeTextarea maxLength={200} ref={inputRef as React.RefObject<AutosizeTextAreaRef>} autoFocus className="resize-none font-medium flex-1 h-[38px]" value={message} onChange={(e) => setMessage(e.target.value)} disabled={isPending} placeholder="Mesaj..." />
             <Button size={"icon"} className="m-[1px]" disabled={isPending} onClick={() => execute({
                 message,
                 roomId
