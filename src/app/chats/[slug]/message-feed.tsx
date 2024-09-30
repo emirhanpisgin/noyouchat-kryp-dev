@@ -31,21 +31,21 @@ export default function MessageFeed({ previousMessages, roomId, userId }: { prev
 
         const channel = pusherClient.subscribe(roomId);
 
-        channel.bind("new-message", (message: MessageWithUser) => {
+        const handleNewMessage = (message: MessageWithUser) => {
             setMessages((prev) => ({
                 ...prev,
                 [roomId]: [...(prev[roomId] ?? []), message],
             }));
-        });
+        };
 
-        channel.bind("delete-message", (messageId: string) => {
+        const handleDeleteMessage = (messageId: string) => {
             setMessages((prev) => ({
                 ...prev,
                 [roomId]: (prev[roomId] ?? []).filter((message) => message.id !== messageId),
             }));
-        });
+        };
 
-        channel.bind("delete-room", () => {
+        const handleDeleteRoom = () => {
             setMessages((prev) => {
                 const newMessages = { ...prev };
                 delete newMessages[roomId];
@@ -58,9 +58,16 @@ export default function MessageFeed({ previousMessages, roomId, userId }: { prev
                 description: "Katıldığınız oda yöneticisi tarafından silindi, anasayfaya yönlendiriliyorsunuz.",
             });
             router.push("/chats");
-        });
+        };
+
+        channel.bind("new-message", handleNewMessage);
+        channel.bind("delete-message", handleDeleteMessage);
+        channel.bind("delete-room", handleDeleteRoom);
 
         return () => {
+            channel.unbind("new-message", handleNewMessage);
+            channel.unbind("delete-message", handleDeleteMessage);
+            channel.unbind("delete-room", handleDeleteRoom);
             channel.unsubscribe();
         };
     }, []);
