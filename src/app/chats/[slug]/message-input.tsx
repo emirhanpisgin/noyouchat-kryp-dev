@@ -6,14 +6,22 @@ import { useRef, useState } from "react";
 import { useServerAction } from "zsa-react";
 import { createMessageAction } from "./actions";
 import { LoaderCircle, SendHorizontal } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function MessageInput({ roomId }: { roomId: string }) {
     const [message, setMessage] = useState("");
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    const { toast } = useToast();
     const { execute, isPending } = useServerAction(createMessageAction, {
         onFinish() {
             setMessage("");
             inputRef.current?.focus();
+        },
+        onError() {
+            toast({
+                title: "Başarısız",
+                description: "Mesajınız gönderilemedi, lütfen tekrar deneyin.",
+            })
         }
     });
 

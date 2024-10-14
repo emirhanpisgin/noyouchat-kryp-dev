@@ -15,43 +15,47 @@ export const createMessageAction = authenticatedAction
 		})
 	)
 	.handler(async ({ ctx, input }) => {
-		await createMessageUseCase(input.roomId, ctx.id!, input.message);
-
-        revalidatePath(`/chats/${input.roomId}`);
+		try {
+			await createMessageUseCase(input.roomId, ctx.id!, input.message);
+			revalidatePath(`/chats/${input.roomId}`);
+		} catch (error) {
+			console.error("Failed to create message:", error);
+			throw new Error("Failed to create message");
+		}
 	});
 
 export const deleteMessageAction = authenticatedAction
-    .createServerAction()
-    .input(
-        z.object({
-            messageId: z.string(),
-        })
-    )
-    .handler(async ({ ctx, input }) => {
-        await deleteMessageUseCase(ctx.id!, input.messageId);
-    });
+	.createServerAction()
+	.input(
+		z.object({
+			messageId: z.string(),
+		})
+	)
+	.handler(async ({ ctx, input }) => {
+		await deleteMessageUseCase(ctx.id!, input.messageId);
+	});
 
 export const editRoomNameAction = authenticatedAction
-    .createServerAction()
+	.createServerAction()
 	.input(
 		z.object({
 			roomId: z.string(),
 			name: z.string().min(1),
 		})
 	)
-    .handler(async ({ ctx, input }) => {
-        await editRoomNameUseCase(ctx.id!, input.roomId, input.name);
+	.handler(async ({ ctx, input }) => {
+		await editRoomNameUseCase(ctx.id!, input.roomId, input.name);
 
-        revalidatePath(`/chats/${input.roomId}`);
-    });
+		revalidatePath(`/chats/${input.roomId}`);
+	});
 
 export const deleteRoomAction = authenticatedAction
-    .createServerAction()
-    .input(
-        z.object({
-            roomId: z.string(),
-        })
-    )
-    .handler(async ({ ctx, input }) => {
-        await deleteRoomUseCase(ctx.id!, input.roomId);
-    });
+	.createServerAction()
+	.input(
+		z.object({
+			roomId: z.string(),
+		})
+	)
+	.handler(async ({ ctx, input }) => {
+		await deleteRoomUseCase(ctx.id!, input.roomId);
+	});
